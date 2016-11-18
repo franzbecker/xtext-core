@@ -16,6 +16,7 @@ import org.eclipse.xtext.Action;
 import org.eclipse.xtext.Assignment;
 import org.eclipse.xtext.CrossReference;
 import org.eclipse.xtext.GrammarUtil;
+import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.formatting2.regionaccess.ITextRegionAccess;
 import org.eclipse.xtext.nodemodel.BidiTreeIterator;
@@ -134,6 +135,8 @@ public class NodeModelBasedRegionAccessBuilder {
 					EObject ge = next.getGrammarElement();
 					if (ge instanceof Action)
 						return true;
+					if (ge instanceof Keyword && GrammarUtil.isAssigned(ge))
+					    return true;
 					if (ge instanceof RuleCall && GrammarUtil.isAssigned(ge)
 							&& ((RuleCall) ge).getRule().getType().getClassifier() instanceof EDataType)
 						return true;
