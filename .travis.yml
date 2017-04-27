@@ -1,0 +1,10 @@
+language: java
+sudo: false
+jdk:
+  - oraclejdk8
+script:
+- ./gradlew clean cleanGenerateXtext build createLocalMavenRepo -PuseJenkinsSnapshots=true -PcompileXtend=true --refresh-dependencies --continue
+- mvn -f releng --batch-mode --update-snapshots -Dmaven.repo.local=.m2/repository clean install
+cache:
+  directories:
+  - $HOME/.gradle
